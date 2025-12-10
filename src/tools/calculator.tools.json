@@ -1,0 +1,33 @@
+{
+  "name": "calculadora",
+  "description": "ERealiza operaciones aritméticas básicas como suma, resta, multiplicación y división con dos nukmeros",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "operacion": {
+        "type": "string",
+        "enum": [
+            "sumar",
+            "restar",
+            "multiplicar",
+            "dividir"
+        ],
+        "description": "La operación aritmética a realizar: sumar, restar, multiplicar o dividir."
+      },
+      "a": {
+        "type": "number",
+        "description": "El primer operando."
+      },
+      "b": {
+        "type": "number",
+        "description": "El segundo operando."
+      }
+    },
+      "required": [
+        "operacion",
+        "a",
+        "b"
+      ],
+    "additionalProperties": false
+  }
+}
