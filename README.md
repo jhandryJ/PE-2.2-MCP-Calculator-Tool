@@ -9,6 +9,7 @@ El proyecto integra **Swagger** para documentar la API, emplea **JSON Schema** p
 ## **Estructura del Proyecto**
 
 El proyecto esta organizado de forma clara y modular:
+
 ![Ejemplo de multiplicacion](./capturas/estructura.png)
 
 
