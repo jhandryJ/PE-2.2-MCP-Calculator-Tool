@@ -1,13 +1,13 @@
-#Node
+# Node
 node_modules/
 package-lock.json
 
-#enviroment
+# Environment
 .env
 
-#IDE
+# IDE
 .vscode/
 
-#SO
+# OS
 .DS_Store
 Thumbs.db

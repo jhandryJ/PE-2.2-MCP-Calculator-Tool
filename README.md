@@ -1,205 +1,215 @@
-
 # PE-2.2 CALCULATOR – API MCP
 
-API REST desarrollada con **Fastify + TypeScript**, diseñada para procesar operaciones aritméticas basicas (suma, resta, multiplicacion y division).
-El proyecto integra **Swagger** para documentar la API, emplea **JSON Schema** para validar los datos de entrada y utiliza una arquitectura modular siguiendo buenas practicas de desarrollo.
+API REST desarrollada con **Fastify + TypeScript**, diseñada para procesar operaciones aritméticas básicas (suma, resta, multiplicación y división).
+El proyecto integra **Swagger** para documentar la API, emplea **JSON Schema** para validar los datos de entrada y utiliza una arquitectura modular siguiendo buenas prácticas de desarrollo.
 
 ---
 
 ## **Estructura del Proyecto**
 
-El proyecto esta organizado de forma clara y modular:
+El proyecto está organizado de forma clara y modular:
 
+```
 
 PE-2.2-CALCULATOR/
 │
-├── capturas/                  # Evidencias y pruebas (opcional)
+├── capturas/                  # Evidencias y pruebas
 ├── node_modules/              # Dependencias del entorno
 │
 ├── src/
 │   ├── routes/
-│   │   └── calculator.router.ts     # Control de la operacion calculadora
+│   │   └── calculator.router.ts     # Control de la operación calculadora
 │   │
 │   ├── tools/
-│   │   └── calculator.tools.json    # Esquema de validacion de entrada
+│   │   └── calculator.tools.json    # Esquema de validación de entrada
 │   │
-│   └── index.ts                     # Servidor, configuracion y Swagger
+│   └── index.ts                     # Servidor, configuración y Swagger
 │
 ├── package.json
 ├── package-lock.json
 └── tsconfig.json
 
+```
 
-# Descripcion General
+---
 
-La API expone un endpoint principal utilizado para resolver operaciones matematicas basicas:
+## **Descripción General**
 
+La API expone un endpoint principal utilizado para resolver operaciones matemáticas básicas:
+
+```
 
 POST /tools/calculadora
 
+````
 
 El flujo general de funcionamiento es el siguiente:
 
-1. El usuario envia un cuerpo JSON que incluye la operacion a realizar y dos valores numéricos.
-2. Los datos pasan por un sistema de validacion definido en un archivo JSON.
-3. Según la operacion solicitada, el sistema ejecuta el calculo.
-4. Se devuelve un resultado exitoso o un mensaje de error si la peticion es invalida.
+1. El usuario envía un cuerpo JSON que incluye la operación a realizar y dos valores numéricos.
+2. Los datos pasan por un sistema de validación definido en un archivo JSON.
+3. Según la operación solicitada, el sistema ejecuta el cálculo.
+4. Se devuelve un resultado exitoso o un mensaje de error si la petición es inválida.
 
-La API esta diseñada para operar de forma segura, validada y documentada.
+La API está diseñada para operar de forma segura, validada y documentada.
 
 ---
 
-# Principales Funcionalidades
+## **Principales Funcionalidades**
 
 Permite ejecutar **cuatro operaciones aritméticas**:
 
-* Suma
-* Resta
-* Multiplicacion
-* Division
+- Suma  
+- Resta  
+- Multiplicación  
+- División  
 
-- Validacion estricta del JSON recibido mediante un esquema formal.
-- Documentacion automatica accesible desde **/docs** gracias a Swagger UI.
-- Manejo robusto de errores, incluyendo division entre cero.
-- Arquitectura modular que separa rutas, herramientas y configuracion principal.
-- Implementada completamente con **TypeScript** para mejorar la calidad del codigo.
+Otras características importantes:
+
+- Validación estricta del JSON recibido mediante un esquema formal.
+- Documentación automática accesible desde **/docs** gracias a Swagger UI.
+- Manejo robusto de errores, incluyendo división entre cero.
+- Arquitectura modular que separa rutas, herramientas y configuración principal.
+- Implementación completa con **TypeScript** para mejorar la calidad del código.
 
 ---
 
-# Instalacion del Proyecto
+## **Instalación del Proyecto**
 
-Para instalar las dependencias del entorno se utiliza:
+Para instalar las dependencias del entorno:
 
+```bash
 npm install
+````
 
 ---
 
-#  Ejecucion del Servidor
+## **Ejecución del Servidor**
 
 Para iniciar el servidor en modo desarrollo:
-npm run dev
 
-Una vez levantado, el servidor estara disponible en:
+```bash
+npm run dev
+```
+
+Una vez levantado, el servidor estará disponible en:
+
+```
 http://localhost:3000
+```
 
 ---
 
-# Documentacion Swagger
+## **Documentación Swagger**
 
-La documentacion interactiva generada automaticamente esta disponible en:
+La documentación interactiva generada automáticamente está disponible en:
+
+```
 http://localhost:3000/docs
+```
 
-Aqui podras:
+Desde Swagger UI se puede:
 
-* Ver como funciona el endpoint
-* Revisar los parametros requeridos
+* Ver cómo funciona el endpoint
+* Revisar los parámetros requeridos
 * Probar la API desde el navegador
 * Consultar las respuestas posibles
 
 ---
 
-# Funcionamiento del Endpoint
+## **Funcionamiento del Endpoint**
 
 El endpoint de la calculadora:
 
-* **Recibe** un objeto JSON con la operacion a realizar y los valores numéricos.
-* **Valida** que la operacion sea una de las permitidas y que los números sean validos.
-* **Ejecuta** la operacion correspondiente.
+* **Recibe** un objeto JSON con la operación a realizar y los valores numéricos.
+* **Valida** que la operación sea una de las permitidas y que los números sean válidos.
+* **Ejecuta** la operación correspondiente.
 * **Responde** con el resultado o con un mensaje de error si los datos no cumplen el esquema.
 
-La validacion evita entradas incorrectas, propiedades adicionales y operaciones invalidas.
+La validación evita entradas incorrectas, propiedades adicionales y operaciones inválidas.
 
 ---
 
-# Pruebas Realizadas (Thunder Client)
+## **Pruebas Realizadas**
 
-Se realizaron pruebas con los siguientes escenarios:
+Se realizaron pruebas con los siguientes escenarios utilizando Swagger UI:
 
 ### Suma
 
-Entrada valida → retorna el resultado correcto.
-![Ejemplo de multiplicacion](./capturas/suma.png)
+Entrada válida → retorna el resultado correcto.
 
 ### Resta
 
-Entrada valida → devuelve el resultado esperado.
-![Ejemplo de multiplicacion](./capturas/restar.png)
+Entrada válida → devuelve el resultado esperado.
 
-### Multiplicacion
+### Multiplicación
 
-Entrada valida → operacion correcta.
-![Ejemplo de multiplicacion](./capturas/multiplicacion.png)
+Entrada válida → operación correcta.
 
-### Division
+### División
 
-Entrada valida → resultado calculado correctamente.
-![Ejemplo de multiplicacion](./capturas/dividir.png)
+Entrada válida → resultado calculado correctamente.
 
-### Division entre cero
+### División entre cero
 
-La API responde con un **error 400** indicando que la operacion no es valida.
-![Ejemplo de multiplicacion](./capturas/dividir%20entre%200.png)
+La API responde con un **error 400**, indicando que la operación no es válida.
 
-### Validacion de esquema
+### Validación de esquema
 
-Si el usuario envia datos incorrectos, faltantes o con propiedades extra, la API los rechaza de forma segura.
+Si el usuario envía datos incorrectos, faltantes o con propiedades adicionales, la API los rechaza de forma segura.
 
 ---
 
-# Resultado Final del Proyecto
+## **Resultado Final del Proyecto**
 
 Esta API cumple con los requisitos del MCP:
 
 * Arquitectura limpia y estructurada
-* Operaciones matematicas totalmente funcionales
+* Operaciones matemáticas funcionales
 * Manejo seguro y validado de entrada
-* Documentacion clara con Swagger
-* Buenas practicas de desarrollo con TypeScript y Fastify
+* Documentación clara con Swagger
+* Buenas prácticas de desarrollo con TypeScript y Fastify
 
-Es una solucion lista para ser integrada o ampliada.
+Es una solución lista para ser integrada o ampliada.
+
+---
 
 ## 🔐 Seguridad y Autenticación
 
-Aunque la autenticación no está implementada en esta versión,
-la documentación OpenAPI incluye esquemas de seguridad con el
-objetivo de mostrar buenas prácticas de diseño de APIs.
+Aunque la autenticación no está implementada en esta versión, la documentación OpenAPI incluye esquemas de seguridad con el objetivo de mostrar buenas prácticas de diseño de APIs.
 
 ### Esquemas documentados:
-- **API Key**: Uso de una clave enviada en el header `X-API-KEY`
-- **Bearer Token (JWT)**: Autenticación basada en tokens JWT
 
-Estos mecanismos permitirían proteger los endpoints
-en un entorno productivo.
+* **API Key**: Uso de una clave enviada en el header `X-API-KEY`
+* **Bearer Token (JWT)**: Autenticación basada en tokens JWT
 
 ### Mitigación de Tool Poisoning
-Para prevenir ataques de Tool Poisoning, el API documenta
-la validación estricta de entradas, control de acceso y
-limitación de solicitudes automatizadas no autorizadas.
-Estas medidas reducen el riesgo de manipulación maliciosa de herramientas
-y fortalecen la confiabilidad del servicio.
 
+Para prevenir ataques de Tool Poisoning, el API documenta la validación estricta de entradas, control de acceso y limitación de solicitudes automatizadas no autorizadas.
+
+---
 
 ## 📦 Versionado del API
 
 El MCP Calculator Tool utiliza versionado semántico (SemVer):
 
-- **MAJOR**: Cambios incompatibles
-- **MINOR**: Nuevas funcionalidades compatibles
-- **PATCH**: Correcciones y mejoras internas
+* **MAJOR**: Cambios incompatibles
+* **MINOR**: Nuevas funcionalidades compatibles
+* **PATCH**: Correcciones y mejoras internas
 
-Ejemplo:
-- `1.0.0` → Versión inicial
-- `1.1.0` → Nueva operación matemática
-- `2.0.0` → Cambio en estructura de respuestas
+Ejemplos:
 
-La estrategia de versionado por URL (`/api/v1`) permite
-mantener compatibilidad con clientes existentes.
-Esta estrategia permite evolucionar el API sin afectar a los clientes existentes,
-facilitando la compatibilidad hacia atrás y el mantenimiento del servicio a largo plazo.
+* `1.0.0` → Versión inicial
+* `1.1.0` → Nueva operación matemática
+* `2.0.0` → Cambio en estructura de respuestas
 
+La estrategia de versionado por URL (`/api/v1`) permite mantener compatibilidad con clientes existentes y facilitar la evolución del API.
 
-# Autor
+---
+
+## **Autor**
 
 **Jhandry Jaramillo**
-Practica PE-2.2 – MCP
+Práctica PE-2.2 – MCP
 Universidad Internacional del Ecuador (UIDE)
+
+````

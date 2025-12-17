@@ -6,8 +6,10 @@ import path from 'path'
 
 const fastify = Fastify({ logger: true })
 
+// Ruta del archivo OpenAPI
 const openapiPath = path.join(__dirname, '../openapi.yaml')
 
+// Registrar Swagger usando OpenAPI estático
 fastify.register(fastifySwagger, {
   mode: 'static',
   specification: {
@@ -16,6 +18,7 @@ fastify.register(fastifySwagger, {
   }
 })
 
+// Registrar Swagger UI
 fastify.register(fastifySwaggerUi, {
   routePrefix: '/docs',
   uiConfig: {
@@ -24,13 +27,16 @@ fastify.register(fastifySwaggerUi, {
   }
 })
 
+// Registrar rutas
 fastify.register(CalculadoraRouter)
 
+// Ruta raíz
 fastify.get('/', async () => {
   return { message: 'MCP Server corriendo' }
 })
 
-const star = async () => {
+// Iniciar servidor
+const start = async () => {
   try {
     await fastify.listen({ port: 3000 })
     console.log('Server listening on http://localhost:3000')
@@ -40,4 +46,4 @@ const star = async () => {
   }
 }
 
-star()
+start()
