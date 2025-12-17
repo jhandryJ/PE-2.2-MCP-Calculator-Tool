@@ -1,32 +1,18 @@
-// Import the framework and instantiate it
 import Fastify from 'fastify'
 import { CalculadoraRouter } from './routes/calculator.router'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
+import path from 'path'
 
-const fastify = Fastify({
-  logger: true
-})
-// Registrar Swagger
+const fastify = Fastify({ logger: true })
+
+const openapiPath = path.join(__dirname, '../openapi.yaml')
+
 fastify.register(fastifySwagger, {
-  openapi: {
-    info: {
-      title: 'MCP para calcular operaciones basicas',
-      description: 'API para operaciones aritméticas básicas usando MCP',
-      version: '1.0.0'
-    },
-    servers: [
-      { 
-        url: 'http://localhost:3000',
-        description: 'Servidor local' 
-      }
-    ],
-    tags: [
-      { 
-        name: 'Calculadora', 
-        description: 'Calculadora de operaciones' 
-      }
-    ]
+  mode: 'static',
+  specification: {
+    path: openapiPath,
+    baseDir: path.dirname(openapiPath)
   }
 })
 
@@ -37,14 +23,13 @@ fastify.register(fastifySwaggerUi, {
     deepLinking: false
   }
 })
-// Registrar rutas
-fastify.register(CalculadoraRouter) 
-// Ruta raíz
-fastify.get('/', async (request, reply) => {
+
+fastify.register(CalculadoraRouter)
+
+fastify.get('/', async () => {
   return { message: 'MCP Server corriendo' }
 })
 
-// Iniciar servidor
 const star = async () => {
   try {
     await fastify.listen({ port: 3000 })

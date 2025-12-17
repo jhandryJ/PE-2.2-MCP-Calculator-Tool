@@ -158,6 +158,46 @@ Esta API cumple con los requisitos del MCP:
 
 Es una solucion lista para ser integrada o ampliada.
 
+## 🔐 Seguridad y Autenticación
+
+Aunque la autenticación no está implementada en esta versión,
+la documentación OpenAPI incluye esquemas de seguridad con el
+objetivo de mostrar buenas prácticas de diseño de APIs.
+
+### Esquemas documentados:
+- **API Key**: Uso de una clave enviada en el header `X-API-KEY`
+- **Bearer Token (JWT)**: Autenticación basada en tokens JWT
+
+Estos mecanismos permitirían proteger los endpoints
+en un entorno productivo.
+
+### Mitigación de Tool Poisoning
+Para prevenir ataques de Tool Poisoning, el API documenta
+la validación estricta de entradas, control de acceso y
+limitación de solicitudes automatizadas no autorizadas.
+Estas medidas reducen el riesgo de manipulación maliciosa de herramientas
+y fortalecen la confiabilidad del servicio.
+
+
+## 📦 Versionado del API
+
+El MCP Calculator Tool utiliza versionado semántico (SemVer):
+
+- **MAJOR**: Cambios incompatibles
+- **MINOR**: Nuevas funcionalidades compatibles
+- **PATCH**: Correcciones y mejoras internas
+
+Ejemplo:
+- `1.0.0` → Versión inicial
+- `1.1.0` → Nueva operación matemática
+- `2.0.0` → Cambio en estructura de respuestas
+
+La estrategia de versionado por URL (`/api/v1`) permite
+mantener compatibilidad con clientes existentes.
+Esta estrategia permite evolucionar el API sin afectar a los clientes existentes,
+facilitando la compatibilidad hacia atrás y el mantenimiento del servicio a largo plazo.
+
+
 # Autor
 
 **Jhandry Jaramillo**

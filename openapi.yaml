@@ -1,0 +1,181 @@
+openapi: 3.0.3
+
+info:
+  title: MCP Calculator Tool API
+  description: >
+    MCP Calculator Tool es una API REST desarrollada con Fastify y TypeScript
+    como parte del proyecto PE-2.2. Permite realizar operaciones aritméticas
+    básicas como suma, resta, multiplicación y división.
+
+    La documentación sigue el estándar OpenAPI 3.0 e incluye metadata,
+    ejemplos de uso, esquemas de seguridad y estrategias de versionado.
+  version: 1.0.0
+  termsOfService: https://example.com/terms
+  contact:
+    name: Jhandry Jaramillo
+    email: jhjaramillope@uide.edu.ec
+    url: https://github.com/jhandryJ
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor local de desarrollo
+
+security:
+  - ApiKeyAuth: []
+  - BearerAuth: []
+
+paths:
+  /tools/calculadora:
+    post:
+      summary: Ejecutar operación matemática
+      description: >
+        Ejecuta una operación aritmética básica entre dos valores numéricos.
+        Las operaciones permitidas son sumar, restar, multiplicar y dividir.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculatorRequest'
+            examples:
+              sumar:
+                summary: Suma
+                description: Suma dos números
+                value:
+                  operacion: sumar
+                  a: 10
+                  b: 7
+              restar:
+                summary: Resta
+                description: Resta dos números
+                value:
+                  operacion: restar
+                  a: 10
+                  b: 3
+              multiplicar:
+                summary: Multiplicación
+                description: Multiplica dos números
+                value:
+                  operacion: multiplicar
+                  a: 4
+                  b: 5
+              dividir:
+                summary: División
+                description: Divide dos números
+                value:
+                  operacion: dividir
+                  a: 20
+                  b: 4
+              dividirEntreCero:
+                summary: División entre cero
+                description: Error al dividir entre cero
+                value:
+                  operacion: dividir
+                  a: 10
+                  b: 0
+      responses:
+        '200':
+          description: Operación ejecutada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculatorResponse'
+              examples:
+                sumaOk:
+                  summary: Resultado suma
+                  value:
+                    result: 17
+                restaOk:
+                  summary: Resultado resta
+                  value:
+                    result: 7
+                multiplicacionOk:
+                  summary: Resultado multiplicación
+                  value:
+                    result: 20
+                divisionOk:
+                  summary: Resultado división
+                  value:
+                    result: 5
+        '400':
+          description: Error de validación o cálculo
+          content:
+            application/json:
+              examples:
+                errorDivisionCero:
+                  summary: División entre cero
+                  value:
+                    error: "No se puede dividir entre cero"
+                errorDatos:
+                  summary: Datos inválidos
+                  value:
+                    error: "Datos de entrada inválidos"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              examples:
+                errorServidor:
+                  summary: Error interno
+                  value:
+                    error: "Error interno del servidor"
+
+components:
+  schemas:
+    CalculatorRequest:
+      type: object
+      required:
+        - operacion
+        - a
+        - b
+      properties:
+        operacion:
+          type: string
+          description: Operación aritmética a realizar
+          enum:
+            - sumar
+            - restar
+            - multiplicar
+            - dividir
+          example: sumar
+        a:
+          type: number
+          description: Primer operando
+          example: 10
+        b:
+          type: number
+          description: Segundo operando
+          example: 5
+
+    CalculatorResponse:
+      type: object
+      properties:
+        result:
+          type: number
+          description: Resultado de la operación
+          example: 15
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: >
+        Autenticación mediante API Key enviada en el header.
+        Diseñada para controlar el acceso al servicio.
+
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Autenticación mediante token JWT usando el esquema Bearer.
+
+x-security-notes:
+  toolPoisoningMitigation: >
+    Para mitigar ataques de Tool Poisoning, el API valida estrictamente
+    las entradas del usuario, limita solicitudes automatizadas y
+    documenta mecanismos de autenticación y control de acceso.
