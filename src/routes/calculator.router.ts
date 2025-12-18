@@ -10,7 +10,7 @@ interface CalculadoraRequest {
 
 export const CalculadoraRouter = (Fastify: FastifyInstance) => {
     Fastify.post<{ Body: CalculadoraRequest }>(
-        '/tools/calculadora',
+        '/V1/tools/calculadora',
         {
             schema: {
                 description: 'Calculadora de operaciones aritméticas básicas',
